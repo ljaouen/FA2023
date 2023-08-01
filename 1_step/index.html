@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FA 2023 - demo</title>
+
+  <!-- Katex -->
+  <link rel="stylesheet" type="text/css" href="./katex/katex.css">
+  <script type="text/javascript" src="./katex/katex.js"></script>
+  <script type="text/javascript" src="./katex/contrib/auto-render.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+            ]
+        });
+    }); 
+  </script>
+
+  <script type="text/javascript" src="./numscrubber.js"></script><!--javascript library for click/touch interaction with numbers-->
+  <script type="text/javascript" src="./controller.js"></script><!--our javascript file with the acoustic computations-->
+
+</head>
+
+<body>
+
+
+<style scoped>
+html {
+  font-size: 16px;
+  /*background: linear-gradient(268.4deg,#FFC700 .22%,#39DD7B 29.61%,#22A2FF 65.58%,#A865FF 97.5%);*/
+}
+input { 
+  width: 10rem;  
+  padding: 5px;
+  border-radius: 5px;  
+  border: 2px solid #ff0000;  
+  outline: none;  
+  background: linear-gradient(to right,#ccc 0%,#ccc 50%,#fff 50%,#fff 100%);
+}  
+
+</style>
+
+
+<input id="L0" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L1" data-numscrubber type="number" value="50" min="0" max="100"/><br>  
+<input id="L2" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L3" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L4" data-numscrubber type="number" value="50" min="0" max="100"/><br>  
+<input id="L5" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L6" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L7" data-numscrubber type="number" value="50" min="0" max="100"/><br>  
+<input id="L8" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+<input id="L9" data-numscrubber type="number" value="50" min="0" max="100"/><br>
+
+<br>
+Resulting global level:<br>
+<span id="result"></span><br>
+<!--
+https://www.youtube.com/watch?v=sNL-jU8IBYc
+-->
+
+The sound pressure levels of n non-correlated radiating sources characterized with pressures $p_i$ Pascal is
+\[
+L_\Sigma = 10 \log_{10}\left(\frac{p_1^2 + p_2^2 + \dots + p_n^2}{p_0^2}\right)~\text{dB SPL}
+\]
+\[
+L_\Sigma = 
+10 \log_{10}\left[\left(\frac{p_1}{p_0}\right)^2 + \left(\frac{p_2}{p_0}\right)^2 + \dots + \left(\frac{p_n}{p_0}\right)^2\right]~\text{dB SPL}
+\]
+
+Using:
+\[
+\left(\frac{p_i}{p_0}\right)^2 = 10^{L_i/10},\quad i = 1, 2, \ldots, n
+\]
+We get:
+\[ 
+L_\Sigma = 10 \log_{10} \left(10^{L_1/10} + 10^{L_2/10} + \dots + 10^{L_n/10} \right)~\text{dB SPL}
+\]
+
+
+</body>
+</html>
