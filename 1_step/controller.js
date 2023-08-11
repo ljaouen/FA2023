@@ -3,7 +3,6 @@
 const P0 = 2e-5; // Reference pressure in Pascal
 
 let soundPressureLevels = [50, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Sound pressure levels of 10 uncorrelated sound source in deciBel
-let L1, L2, L3, L4, L5, L6, L7, L8, L9; // Input elements for sound pressure level of each uncorrelated sound source
 let result_div;
 let result = 0; 
 
