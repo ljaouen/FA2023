@@ -3,28 +3,8 @@
 const P0 = 2e-5; // Reference pressure in Pascal
 
 let soundPressureLevels = [50, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Sound pressure levels of 10 uncorrelated sound source in deciBel
-let result_div;
+let result_span;
 let result = 0; 
-
-
-// Convert pressure from Pascal to deciBel
-function convertPressureFromPaTodB(pressure) {
-    return 20 * Math.log10(pressure / P0);
-}
-
-// Convert pressure from deciBel to Pascal
-function convertPressureFromDBToPa(pressure) {
-    return Math.pow(10, pressure / 20) * P0;
-}
-
-// Compute the global sound pressure level from the sound pressure level of each uncorrelated sound source
-function computeGlobalSoundPressureLevel(soundPressureLevels) {
-    return 10 * Math.log10(
-        soundPressureLevels.reduce((sum, soundPressureLevel) => {
-            return sum + Math.pow(10, soundPressureLevel / 10);
-        }, 0)
-    );
-}
 
 // When the page and all related files are loaded, call the init function and start listening
 // to the input text boxes for changes
@@ -35,7 +15,7 @@ function init() {
     // Initialize the Numscrubber library
     Numscrubber.init();
 
-    result_div = document.getElementById("result");
+    result_span = document.getElementById("result");
 
     document.getElementById("L0").value = 50;
     document.getElementById("L0").style.background = "linear-gradient(to right,#ccc 0%,#ccc 50%,#fff 50%,#fff 100%)";
@@ -77,16 +57,20 @@ function init() {
     }
 
     // The default value for the global sound pressure level is 50 dB (one source at 50 dB)
-    result_div.innerHTML = "50";
-}
-
-// Convert integer from 60 to 100 to a percentage scale
-function convertIntToPercentage(int) {
-    return (int - 60) / 40 * 100;
+    result_span.innerHTML = "50";
 }
 
 // Modify the result displayed on the page
 function updateResult() {
     result = computeGlobalSoundPressureLevel(soundPressureLevels).toFixed(0);
-    result_div.innerHTML = result;
+    result_span.innerHTML = result;
+}
+
+// Compute the global sound pressure level from the sound pressure level of each uncorrelated sound source
+function computeGlobalSoundPressureLevel(soundPressureLevels) {
+    return 10 * Math.log10(
+        soundPressureLevels.reduce((sum, soundPressureLevel) => {
+            return sum + Math.pow(10, soundPressureLevel / 10);
+        }, 0)
+    );
 }
